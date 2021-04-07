@@ -4,6 +4,7 @@ import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
 import { Schedule } from '@ts/interfaces/schedule';
 import { Section } from '@ts/interfaces/section';
 import { Document, Schema as mongooseSchema } from 'mongoose';
+import { Category } from '../categories/category.schema';
 
 export type RestaurantDocument = Restaurant & Document;
 
@@ -16,6 +17,9 @@ export class Restaurant {
 
   @Prop()
   description?: string;
+
+  @Prop()
+  phone?: string;
 
   @Prop()
   schedule?: Schedule;
@@ -36,10 +40,24 @@ export class Restaurant {
   @Prop({ default: false })
   disabled?: boolean;
 
-  @Prop()
-  categories?: string;
+  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Category' }] })
+  categories?: Category[];
 
-  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Meal' }] })
+  @Prop({
+    type: [
+      {
+        displayName: String,
+        description: String,
+        disabled: Boolean,
+        meals: [
+          {
+            type: mongooseSchema.Types.ObjectId,
+            ref: 'Meal',
+          },
+        ],
+      },
+    ],
+  })
   sections?: Section[];
 
   images?: RestaurantImages;

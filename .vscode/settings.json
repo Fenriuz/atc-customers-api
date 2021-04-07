@@ -1,5 +1,7 @@
 {
-    "cSpell.words": [
-        "Cloudinary"
-    ]
+  "editor.tabSize": 2,
+  "cSpell.words": ["Cloudinary", "jwtid", "nestjs"],
+  "eslint.options": {
+    "max-lines": 100
+  }
 }

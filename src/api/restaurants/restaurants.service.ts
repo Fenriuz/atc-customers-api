@@ -1,17 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { CloudinaryService } from '@services/cloudinary/cloudinary.service';
+import { Injectable } from '@nestjs/common';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 import { ScheduleHoursService } from '@shared/services/schedule-hours.service';
 import { RestaurantsDao } from './restaurants.dao';
-import { CreateRestaurantDto } from './restaurants.dto';
 import { RestaurantDocument } from './restaurants.schema';
 
 @Injectable()
 export class RestaurantsService {
   constructor(
     private readonly restaurantsDao: RestaurantsDao,
-    @Inject(CloudinaryService)
-    private readonly _cloudinaryService: CloudinaryService,
     private readonly scheduleHoursService: ScheduleHoursService,
   ) {}
 
@@ -43,22 +39,5 @@ export class RestaurantsService {
     const restaurant = this.getExtraData(record);
 
     return restaurant;
-  }
-
-  async create({ images, ...restaurant }: CreateRestaurantDto) {
-    const createdRestaurant = await this.restaurantsDao.create(restaurant);
-
-    this._cloudinaryService.upload(
-      images?.cover,
-      'restaurantCover',
-      createdRestaurant?._id,
-    );
-    this._cloudinaryService.upload(
-      images?.logo,
-      'restaurantLogo',
-      createdRestaurant?._id,
-    );
-
-    return createdRestaurant;
   }
 }
