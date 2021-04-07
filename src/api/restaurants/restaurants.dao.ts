@@ -36,4 +36,18 @@ export class RestaurantsDao {
       throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.NOT_FOUND);
     }
   }
+
+  async findSection(restaurantId: string, sectionName: string) {
+    try {
+      return await this.restaurantModel
+        .findById(restaurantId)
+        .populate({
+          path: 'sections.meals',
+          select: 'displayName description disabled price',
+        })
+        .select({ sections: { $elemMatch: { displayName: sectionName } } });
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneSection, HttpStatus.CONFLICT);
+    }
+  }
 }

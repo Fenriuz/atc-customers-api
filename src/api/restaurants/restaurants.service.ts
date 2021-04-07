@@ -27,9 +27,7 @@ export class RestaurantsService {
 
   async findAll() {
     const records = await this.restaurantsDao.findAll();
-    const restaurants = records.map((restaurant) =>
-      this.getExtraData(restaurant),
-    );
+    const restaurants = records.map((restaurant) => this.getExtraData(restaurant));
 
     return restaurants;
   }
@@ -39,5 +37,9 @@ export class RestaurantsService {
     const restaurant = this.getExtraData(record);
 
     return restaurant;
+  }
+
+  async findSection(restaurantId: string, currentSection: string) {
+    return this.restaurantsDao.findSection(restaurantId, currentSection);
   }
 }

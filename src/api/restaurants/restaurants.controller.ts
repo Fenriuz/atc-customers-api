@@ -15,4 +15,12 @@ export class RestaurantsController {
   findById(@Param('id') id: string) {
     return this.restaurantsService.findById(id);
   }
+
+  @Get(':restaurantId/sections/:currentSection')
+  findSection(
+    @Param('restaurantId') restaurantId: string,
+    @Param('currentSection') currentSection: string,
+  ) {
+    return this.restaurantsService.findSection(restaurantId, currentSection);
+  }
 }

@@ -1,27 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateMealDto } from './meals.dto';
-import { Meal, MealDocument } from './meals.schema';
+import { MealsDao } from './meals.dao';
 
 @Injectable()
 export class MealsService {
-  constructor(@InjectModel(Meal.name) private mealModel: Model<MealDocument>) {}
+  constructor(private mealsDao: MealsDao) {}
 
-  async findAll() {
-    try {
-      return this.mealModel.find();
-    } catch (e) {
-      return 'Error';
-    }
+  findAll() {
+    return this.mealsDao.findAll();
   }
 
-  async create(restaurant: string, meal: CreateMealDto) {
-    try {
-      const newMeal = new this.mealModel(meal);
-      return await newMeal.save();
-    } catch (e) {
-      return 'Error';
-    }
+  findById(id: string) {
+    return this.mealsDao.findById(id);
   }
 }

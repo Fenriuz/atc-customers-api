@@ -3,6 +3,8 @@ import { MealsController } from './meals.controller';
 import { Module } from '@nestjs/common';
 import { Meal, MealSchema } from './meals.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MealsDao } from './meals.dao';
+import { mongoCollections } from '@shared/constants/mongo-collections.constants';
 
 @Module({
   imports: [
@@ -10,11 +12,11 @@ import { MongooseModule } from '@nestjs/mongoose';
       {
         name: Meal.name,
         schema: MealSchema,
-        collection: 'meals',
+        collection: mongoCollections.meals,
       },
     ]),
   ],
   controllers: [MealsController],
-  providers: [MealsService],
+  providers: [MealsService, MealsDao],
 })
 export class MealsModule {}
