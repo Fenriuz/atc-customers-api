@@ -26,6 +26,9 @@ export const httpErrors = {
   findAllDeliveryMen: `${prefix}could not get the delivery men`,
   findOneDeliveryMan: `${prefix}could not get the delivery man`,
 
-  createCustomer: `${prefix}the customer could not be created `,
+  createCustomer: `${prefix}the customer could not be created`,
   updateCustomer: `${prefix}the customer could not be updated`,
+
+  createLike: `${prefix}the like could not be created`,
+  deleteLike: `${prefix}the like could not be deleted`,
 };

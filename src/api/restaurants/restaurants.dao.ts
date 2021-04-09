@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { httpErrors } from '@shared/constants/http-errors.constants';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Restaurant, RestaurantDocument } from './restaurants.schema';
 
 @Injectable()
@@ -39,6 +39,44 @@ export class RestaurantsDao {
 
   async findSection(restaurantId: string, sectionName: string) {
     try {
+      // const _id = Types.ObjectId(restaurantId);
+
+      // return await this.restaurantModel.aggregate([
+      // { $match: { _id } },
+      // {
+      //   $lookup: {
+      //     from: 'meals',
+      //     pipeline: [
+      //       {
+      //         $lookup: {
+      //           from: 'likes',
+      //           localField: 'mobilic.sections.meals',
+      //           foreignField: '_id',
+      //           as: 'nada',
+      //         },
+      //       },
+      //     ],
+      //     as: 'mobilic',
+      //   },
+      // },
+      // { $unwind: '$sections' },
+      // {
+      //   $lookup: {
+      //     from: 'meals',
+      //     localField: 'sections.meals',
+      //     foreignField: '_id',
+      //     as: 'mobilic',
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'likes',
+      //     localField: 'mobilic._id',
+      //     foreignField: 'meal',
+      //     as: 'yas',
+      //   },
+      // },
+      // ]);
       return await this.restaurantModel
         .findById(restaurantId)
         .populate({

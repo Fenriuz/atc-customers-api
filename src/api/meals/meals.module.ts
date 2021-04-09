@@ -5,6 +5,7 @@ import { Meal, MealSchema } from './meals.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MealsDao } from './meals.dao';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
+import { LikesModule } from '../likes/likes.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
         collection: mongoCollections.meals,
       },
     ]),
+    LikesModule,
   ],
   controllers: [MealsController],
   providers: [MealsService, MealsDao],
