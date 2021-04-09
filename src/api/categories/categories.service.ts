@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 import { ScheduleHoursService } from '@shared/services/schedule-hours.service';
-import { RestaurantsDao } from './restaurants.dao';
-import { RestaurantDocument } from './restaurants.schema';
+import { RestaurantDocument } from '../restaurants/restaurants.schema';
+import { CategoriesDao } from './categories.dao';
 
 @Injectable()
-export class RestaurantsService {
+export class CategoriesService {
   constructor(
-    private readonly restaurantsDao: RestaurantsDao,
+    private categoriesDao: CategoriesDao,
     private readonly scheduleHoursService: ScheduleHoursService,
   ) {}
 
   getExtraData(restaurantData: RestaurantDocument) {
-    const { schedule, ...restaurant } = restaurantData.toJSON();
+    const { schedule, ...restaurant } = restaurantData;
     const URL = cloudinaryFolders.url;
 
     const images = {
@@ -25,21 +25,17 @@ export class RestaurantsService {
     return { closed, images, ...restaurant };
   }
 
-  async findAll() {
-    const records = await this.restaurantsDao.findAll();
-    const restaurants = records.map((restaurant) => this.getExtraData(restaurant));
-
-    return restaurants;
+  findAll() {
+    return this.categoriesDao.findAll();
   }
 
   async findById(id: string) {
-    const record = await this.restaurantsDao.findById(id);
-    const restaurant = this.getExtraData(record);
+    const [records] = await this.categoriesDao.findById(id);
 
-    return restaurant;
-  }
+    const restaurants = records.restaurants.map((record: RestaurantDocument) =>
+      this.getExtraData(record),
+    );
 
-  async findSection(restaurantId: string, currentSection: string) {
-    return this.restaurantsDao.findSection(restaurantId, currentSection);
+    return restaurants;
   }
 }

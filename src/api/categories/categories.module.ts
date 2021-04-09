@@ -1,7 +1,11 @@
+import { CategoriesController } from './categories.controller';
+import { CategoriesService } from './categories.service';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
 import { Category, CategorySchema } from './category.schema';
+import { CategoriesDao } from './categories.dao';
+import { ScheduleHoursModule } from '@shared/modules/schedule-hours.module';
 
 @Module({
   imports: [
@@ -12,8 +16,9 @@ import { Category, CategorySchema } from './category.schema';
         collection: mongoCollections.categories,
       },
     ]),
+    ScheduleHoursModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [CategoriesController],
+  providers: [CategoriesService, CategoriesDao],
 })
 export class CategoriesModule {}

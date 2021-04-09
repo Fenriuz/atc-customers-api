@@ -20,5 +20,6 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
   ],
   controllers: [RestaurantsController],
   providers: [RestaurantsService, RestaurantsDao],
+  exports: [RestaurantsService],
 })
 export class RestaurantsModule {}
