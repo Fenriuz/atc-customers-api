@@ -39,43 +39,76 @@ export class RestaurantsDao {
 
   async findSection(restaurantId: string, sectionName: string) {
     try {
-      // const _id = Types.ObjectId(restaurantId);
+      const _id = Types.ObjectId(restaurantId);
+      const mmmunu = [Types.ObjectId('6062a41b9a130803ebeb92a6')];
 
       // return await this.restaurantModel.aggregate([
-      // { $match: { _id } },
-      // {
-      //   $lookup: {
-      //     from: 'meals',
-      //     pipeline: [
-      //       {
-      //         $lookup: {
-      //           from: 'likes',
-      //           localField: 'mobilic.sections.meals',
-      //           foreignField: '_id',
-      //           as: 'nada',
-      //         },
-      //       },
-      //     ],
-      //     as: 'mobilic',
+      //   { $match: { _id } },
+      //   {
+      //     // Esto funciona igual que el populate
+      //     $lookup: {
+      //       from: 'meals',
+      //       localField: 'sections.meals',
+      //       foreignField: '_id',
+      //       as: 'abr',
+      //     },
+      //     // masooooooooooooooooooo
+      //     // $lookup: {
+      //     //   from: 'meals',
+      //     //   pipeline: [{ $match: { _id: mmmunu } }],
+      //     //   as: 'abr',
+      //     // },
+      //     // $lookup: {
+      //     //   from: 'meals',
+      //     //   // let: { mealsid: '$sections.meals.abrid' },
+      //     //   pipeline: [
+      //     //     {
+      //     //       $match: {
+      //     //         $expr: {
+      //     //           $eq: [{ $sections: sectionName }],
+      //     //         },
+      //     //       },
+      //     //       // $match: {
+      //     //       //   $expr: { $in: ['$_id', '$$mealsid'] },
+      //     //       // },
+      //     //     },
+      //     //   ],
+      //     //   as: 'abr',
+      //     // },
       //   },
-      // },
-      // { $unwind: '$sections' },
-      // {
-      //   $lookup: {
-      //     from: 'meals',
-      //     localField: 'sections.meals',
-      //     foreignField: '_id',
-      //     as: 'mobilic',
-      //   },
-      // },
-      // {
-      //   $lookup: {
-      //     from: 'likes',
-      //     localField: 'mobilic._id',
-      //     foreignField: 'meal',
-      //     as: 'yas',
-      //   },
-      // },
+      //   // {
+      //   //   $lookup: {
+      //   //     from: 'meals',
+      //   //     pipeline: [
+      //   //       {
+      //   //         $lookup: {
+      //   //           from: 'likes',
+      //   //           localField: 'mobilic._id',
+      //   //           foreignField: 'meals',
+      //   //           as: 'nada',
+      //   //         },
+      //   //       },
+      //   //     ],
+      //   //     as: 'mobilic',
+      //   //   },
+      //   // },
+      //   // { $unwind: '$sections' },
+      //   // {
+      //   //   $lookup: {
+      //   //     from: 'meals',
+      //   //     localField: 'sections.meals',
+      //   //     foreignField: '_id',
+      //   //     as: 'mobilic',
+      //   //   },
+      //   // },
+      //   // {
+      //   //   $lookup: {
+      //   //     from: 'likes',
+      //   //     localField: 'mobilic._id',
+      //   //     foreignField: 'meal',
+      //   //     as: 'yas',
+      //   //   },
+      //   // },
       // ]);
       return await this.restaurantModel
         .findById(restaurantId)
@@ -83,8 +116,9 @@ export class RestaurantsDao {
           path: 'sections.meals',
           select: 'displayName description disabled price',
         })
-        .select({ sections: { $elemMatch: { displayName: sectionName } } });
+      .select({ sections: { $elemMatch: { displayName: sectionName } } });
     } catch (dbErr) {
+      console.log(dbErr);
       throw new HttpException(httpErrors.findOneSection, HttpStatus.CONFLICT);
     }
   }
