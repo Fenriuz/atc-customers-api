@@ -20,9 +20,9 @@ export class RestaurantsService {
       logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${restaurant?._id}`,
     };
 
-    const closed = this.scheduleHoursService.isClosed(schedule);
+    // const closed = this.scheduleHoursService.isClosed(schedule);
 
-    return { closed, images, ...restaurant };
+    return { schedule, images, ...restaurant };
   }
 
   async findAll() {

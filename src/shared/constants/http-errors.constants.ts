@@ -28,6 +28,7 @@ export const httpErrors = {
 
   createCustomer: `${prefix}the customer could not be created`,
   updateCustomer: `${prefix}the customer could not be updated`,
+  findOneCustomer: `${prefix}could not get the customer`,
 
   createLike: `${prefix}the like could not be created`,
   deleteLike: `${prefix}the like could not be deleted`,

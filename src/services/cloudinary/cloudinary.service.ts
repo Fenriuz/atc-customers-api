@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Cloudinary } from './cloudinary.provider';
 import * as CloudinaryLib from 'cloudinary';
-import { UploadApiOptions } from 'cloudinary';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 
 const uploadOptions = (id: string, selectedOption: string) => {
@@ -44,11 +43,7 @@ export class CloudinaryService {
     });
     this.v2 = cloudinary.v2;
   }
-  async upload(
-    file: string,
-    options: 'restaurantCover' | 'restaurantLogo',
-    id: string,
-  ) {
+  async upload(file: string, options: 'restaurantCover' | 'restaurantLogo', id: string) {
     try {
       return await this.v2.uploader.upload(file, uploadOptions(id, options));
     } catch (e) {

@@ -7,16 +7,16 @@ export type CustomerDocument = Customer & Document;
 export class Customer {
   readonly _id?: string;
 
-  @Prop()
+  @Prop({ unique: true, index: true })
   readonly uid: string;
 
   @Prop()
   readonly displayName: string;
 
-  @Prop()
+  @Prop({ unique: true, index: true })
   readonly email: string;
 
-  @Prop()
+  @Prop({ unique: true, index: true })
   readonly phone: string;
 
   @Prop()

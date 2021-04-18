@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { controllerRoutes } from '@shared/constants/controller-routes.constants';
-import { CreateMealDto } from './meals.dto';
 import { MealsService } from './meals.service';
 
 @Controller(controllerRoutes.meals)

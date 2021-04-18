@@ -31,7 +31,10 @@ export class RestaurantsDao {
 
   async findById(id: string): Promise<RestaurantDocument> {
     try {
-      return await this.restaurantModel.findById(id).populate(this.populateCategories);
+      return await this.restaurantModel.findById(id).populate({
+        path: 'categories sections.meals',
+        select: 'displayName description disabled price',
+      });
     } catch (dbErr) {
       throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.NOT_FOUND);
     }
@@ -116,7 +119,7 @@ export class RestaurantsDao {
           path: 'sections.meals',
           select: 'displayName description disabled price',
         })
-      .select({ sections: { $elemMatch: { displayName: sectionName } } });
+        .select({ sections: { $elemMatch: { displayName: sectionName } } });
     } catch (dbErr) {
       console.log(dbErr);
       throw new HttpException(httpErrors.findOneSection, HttpStatus.CONFLICT);

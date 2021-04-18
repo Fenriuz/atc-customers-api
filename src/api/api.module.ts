@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { CategoriesModule } from './categories/categories.module';
 import { CustomersModule } from './customers/customers.module';
 import { LikesModule } from './likes/likes.module';
@@ -14,6 +15,7 @@ import { SectionsModule } from './sections/sections.module';
     SectionsModule,
     LikesModule,
     CustomersModule,
+    AuthenticationModule,
   ],
   controllers: [],
   providers: [],

@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { json } from 'express';
+import admin from 'firebase-admin';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -8,6 +9,16 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.use(json({ limit: '50mb' }));
+
+  const firebaseConfig = {
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  };
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseConfig),
+  });
+
   await app.listen(process.env.PORT);
 }
 bootstrap();
