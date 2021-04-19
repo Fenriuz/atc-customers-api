@@ -8,9 +8,11 @@ import { ConfigModule } from '@nestjs/config';
 import { TokenStrategy } from './api/authentication/strategies/token.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { TokenAuthGuard } from './api/authentication/guards/token-auth.guard';
+import { CustomersModule } from './api/customers/customers.module';
 
 @Module({
   imports: [
+    CustomersModule,
     AuthenticationModule,
     ApiModule,
     ConfigModule.forRoot(),

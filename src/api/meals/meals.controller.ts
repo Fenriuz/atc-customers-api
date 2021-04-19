@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Request } from '@nestjs/common';
 import { controllerRoutes } from '@shared/constants/controller-routes.constants';
 import { MealsService } from './meals.service';
 
@@ -12,8 +12,8 @@ export class MealsController {
   }
 
   @Get(':id')
-  findById(@Param('id') id: string) {
-    return this.mealsService.findById(id);
+  findById(@Param('id') id: string, @Request() { user }) {
+    return this.mealsService.findById(id, user);
   }
 
   @Post('like/:id')

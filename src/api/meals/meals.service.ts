@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
+import { Customer } from '../customers/customer.schema';
 import { LikesDao } from '../likes/likes.dao';
 import { MealsDao } from './meals.dao';
 
@@ -29,6 +30,8 @@ export class MealsService {
     };
     delete meal?.price;
     delete meal?.liked;
+    delete meal?.counterLikes;
+    // delete meal
 
     return { price, ...meal };
   }
@@ -37,8 +40,8 @@ export class MealsService {
     return this.mealsDao.findAll();
   }
 
-  async findById(id: string) {
-    const [record] = await this.mealsDao.findById(id, '606e771eb187f605e38ff471');
+  async findById(id: string, user: Customer) {
+    const [record] = await this.mealsDao.findById(id, user._id);
     const meal = this.normalizedMeal(record);
 
     return meal;

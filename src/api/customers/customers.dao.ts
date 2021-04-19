@@ -9,6 +9,18 @@ import { Customer, CustomerDocument } from './customer.schema';
 export class CustomersDao {
   constructor(@InjectModel(Customer.name) private customerModel: Model<CustomerDocument>) {}
 
+  findByUid(uid: string) {
+    try {
+      return this.customerModel
+        .findOne({
+          uid,
+        })
+        .select({ uid: { $elemMatch: { uid } } });
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneCustomer, HttpStatus.CONFLICT);
+    }
+  }
+
   async findByPhone(phone: string) {
     try {
       return await this.customerModel.findOne({
