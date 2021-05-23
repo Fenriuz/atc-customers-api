@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MealsDao } from './meals.dao';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
 import { LikesModule } from '../likes/likes.module';
+import { CustomersModule } from '../customers/customers.module';
 
 @Module({
   imports: [
@@ -17,8 +18,10 @@ import { LikesModule } from '../likes/likes.module';
       },
     ]),
     LikesModule,
+    CustomersModule,
   ],
   controllers: [MealsController],
   providers: [MealsService, MealsDao],
+  exports: [MealsService, MealsDao],
 })
 export class MealsModule {}

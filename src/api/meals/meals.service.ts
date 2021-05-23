@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 import { Customer } from '../customers/customer.schema';
+import { CustomersService } from '../customers/customers.service';
 import { LikesDao } from '../likes/likes.dao';
 import { MealsDao } from './meals.dao';
 
 @Injectable()
 export class MealsService {
-  constructor(private mealsDao: MealsDao, private likesDao: LikesDao) {}
+  constructor(
+    private mealsDao: MealsDao,
+    private likesDao: LikesDao,
+    private customersService: CustomersService,
+  ) {}
 
   getMealImage(id: string) {
     const URL = cloudinaryFolders.url;
@@ -48,6 +53,7 @@ export class MealsService {
   }
 
   likeMeal(id: string) {
-    return this.likesDao.create(id, '606e771eb187f605e38ff471');
+    const user = this.customersService.getCurrentCustomer();
+    return this.likesDao.create(id, user['_id']);
   }
 }

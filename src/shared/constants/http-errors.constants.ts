@@ -3,6 +3,7 @@ const prefix = 'ATC error: ';
 export const httpErrors = {
   findAllRestaurants: `${prefix}could not get the restaurants.`,
   findOneRestaurant: `${prefix}could not get the restaurant`,
+  closedRestaurant: `${prefix}restaurant is closed`,
 
   findAllMeals: `${prefix}could not get the meals`,
   findOneMeal: `${prefix}could not get the meal`,
@@ -32,4 +33,7 @@ export const httpErrors = {
 
   createLike: `${prefix}the like could not be created`,
   deleteLike: `${prefix}the like could not be deleted`,
+
+  createOrder: `${prefix}the order could not be processing`,
+  cancelOrder: `${prefix}the order not be canceled`,
 };

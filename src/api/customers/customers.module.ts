@@ -18,6 +18,6 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
   ],
   controllers: [CustomersController],
   providers: [CustomersService, CustomersDao],
-  exports: [CustomersDao],
+  exports: [CustomersDao, CustomersService],
 })
 export class CustomersModule {}

@@ -22,7 +22,6 @@ export class TokenStrategy extends PassportStrategy(passportFirebase.Strategy, '
 
       return { ...customerPayload, _id: String(_id) };
     } catch (e) {
-      console.log(e);
       throw new UnauthorizedException();
     }
   }

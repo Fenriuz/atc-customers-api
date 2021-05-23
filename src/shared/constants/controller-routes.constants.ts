@@ -7,4 +7,5 @@ export const controllerRoutes = {
   authentication: 'authentication',
   deliveryMen: 'deliveryMen',
   customers: 'customers',
+  orders: 'orders',
 };

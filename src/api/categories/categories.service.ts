@@ -20,7 +20,7 @@ export class CategoriesService {
       logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${restaurant?._id}`,
     };
 
-    const closed = this.scheduleHoursService.isClosed(schedule);
+    const closed = this.scheduleHoursService.isClosedSchedule(schedule);
 
     return { closed, images, ...restaurant };
   }

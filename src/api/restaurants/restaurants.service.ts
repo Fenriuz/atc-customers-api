@@ -11,6 +11,13 @@ export class RestaurantsService {
     private readonly scheduleHoursService: ScheduleHoursService,
   ) {}
 
+  async isClosedRestaurant(restaurant: RestaurantDocument) {
+    const isClosed =
+      restaurant?.disabled || this.scheduleHoursService.isClosedSchedule(restaurant?.schedule);
+
+    return isClosed;
+  }
+
   getExtraData(restaurantData: RestaurantDocument) {
     const { schedule, ...restaurant } = restaurantData.toJSON();
     const URL = cloudinaryFolders.url;

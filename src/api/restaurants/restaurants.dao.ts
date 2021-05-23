@@ -42,8 +42,8 @@ export class RestaurantsDao {
 
   async findSection(restaurantId: string, sectionName: string) {
     try {
-      const _id = Types.ObjectId(restaurantId);
-      const mmmunu = [Types.ObjectId('6062a41b9a130803ebeb92a6')];
+      // const _id = Types.ObjectId(restaurantId);
+      // const mmmunu = [Types.ObjectId('6062a41b9a130803ebeb92a6')];
 
       // return await this.restaurantModel.aggregate([
       //   { $match: { _id } },

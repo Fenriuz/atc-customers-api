@@ -61,4 +61,12 @@ export class MealsDao {
       throw new HttpException(httpErrors.findOneMeal, HttpStatus.NOT_FOUND);
     }
   }
+
+  async findByIds(meals: string[]) {
+    try {
+      return await this.mealModel.find({ _id: { $in: meals } });
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findAllMeals, HttpStatus.NOT_FOUND);
+    }
+  }
 }

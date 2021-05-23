@@ -8,4 +8,5 @@ export const mongoCollections = {
   deliveryMen: 'delivery-men',
   customers: 'customers',
   likes: 'likes',
+  orders: 'orders',
 };

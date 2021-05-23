@@ -15,9 +15,9 @@ export class ScheduleHoursService {
     [this.day, this.time] = this.date.split(' ');
   }
 
-  isClosed(schedule: Schedule) {
+  isClosedSchedule(schedule: Schedule) {
     const day = schedule[this?.day?.toLowerCase()];
-    if (day?.closed) {
+    if (!day || day?.closed) {
       return true;
     }
 
