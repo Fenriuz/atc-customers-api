@@ -31,6 +31,9 @@ export class Order {
   @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'Customer' })
   readonly customer: string;
 
+  @Prop()
+  readonly customer_uid: string;
+
   @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'DeliveryMan', default: null })
   readonly deliveryMan?: string;
 
