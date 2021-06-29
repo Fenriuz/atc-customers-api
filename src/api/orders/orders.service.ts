@@ -37,9 +37,9 @@ export class OrdersService {
       };
     });
 
-    const customer = this.customersService.getCurrentCustomer()._id;
+    const { _id: customer, uid: customer_uid } = this.customersService.getCurrentCustomer();
 
-    return this.ordersDao.create({ meals, customer, ...order });
+    return this.ordersDao.create({ meals, customer, customer_uid, ...order });
   }
 
   cancel(order: string) {
