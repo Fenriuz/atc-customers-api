@@ -8,6 +8,16 @@ import { Like, LikeDocument } from './like.schema';
 export class LikesDao {
   constructor(@InjectModel(Like.name) private likeModel: Model<LikeDocument>) {}
 
+  async getCustomerLikes(customer: string) {
+    try {
+      return await this.likeModel.find({ customer }).populate({
+        path: 'meal',
+      });
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.getLikes, HttpStatus.CONFLICT);
+    }
+  }
+
   async create(mealId: string, customerId: string) {
     try {
       const snap = await this.likeModel.findOne({

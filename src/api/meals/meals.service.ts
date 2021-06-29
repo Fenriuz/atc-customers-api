@@ -24,10 +24,12 @@ export class MealsService {
   normalizedMeal(record: any) {
     const image = this.getMealImage(record?._id);
     const price = record?.price?.toString();
-    const likes = {
-      userHasLiked: Boolean(record?.liked?.length),
-      count: record?.counterLikes[0]?.count,
-    };
+    const likes = record.liked
+      ? {
+          userHasLiked: Boolean(record?.liked?.length),
+          count: record?.counterLikes?.[0]?.count,
+        }
+      : undefined;
     const meal = {
       image,
       likes,
@@ -41,8 +43,9 @@ export class MealsService {
     return { price, ...meal };
   }
 
-  findAll() {
-    return this.mealsDao.findAll();
+  async findAll() {
+    const meals = await this.mealsDao.findAll();
+    return meals.map((meal) => this.normalizedMeal(meal.toObject()));
   }
 
   async findById(id: string, user: Customer) {
