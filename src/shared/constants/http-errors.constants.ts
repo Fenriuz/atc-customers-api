@@ -33,6 +33,7 @@ export const httpErrors = {
 
   createLike: `${prefix}the like could not be created`,
   deleteLike: `${prefix}the like could not be deleted`,
+  getLikes: `${prefix}could not get the likes`,
 
   createOrder: `${prefix}the order could not be processing`,
   cancelOrder: `${prefix}the order not be canceled`,
