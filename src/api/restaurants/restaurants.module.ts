@@ -6,6 +6,7 @@ import { Restaurant, RestaurantSchema } from './restaurants.schema';
 import { RestaurantsDao } from './restaurants.dao';
 import { ScheduleHoursModule } from '@shared/modules/schedule-hours.module';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
+import { MealsModule } from '../meals/meals.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
       },
     ]),
     ScheduleHoursModule,
+    MealsModule,
   ],
   controllers: [RestaurantsController],
   providers: [RestaurantsService, RestaurantsDao],
