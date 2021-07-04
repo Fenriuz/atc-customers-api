@@ -5,6 +5,7 @@ import { CustomersDao } from './customers.dao';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Customer, CustomerSchema } from './customer.schema';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
+import { LikesModule } from '../likes/likes.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
         schema: CustomerSchema,
       },
     ]),
+    LikesModule,
   ],
   controllers: [CustomersController],
   providers: [CustomersService, CustomersDao],

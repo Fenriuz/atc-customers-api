@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 import { ScheduleHoursService } from '@shared/services/schedule-hours.service';
+import { MealsService } from '../meals/meals.service';
 import { RestaurantsDao } from './restaurants.dao';
 import { RestaurantDocument } from './restaurants.schema';
 
@@ -9,6 +10,7 @@ export class RestaurantsService {
   constructor(
     private readonly restaurantsDao: RestaurantsDao,
     private readonly scheduleHoursService: ScheduleHoursService,
+    private readonly mealService: MealsService,
   ) {}
 
   async isClosedRestaurant(restaurant: RestaurantDocument) {
@@ -45,6 +47,20 @@ export class RestaurantsService {
   }
 
   async findSection(restaurantId: string, currentSection: string) {
-    return this.restaurantsDao.findSection(restaurantId, currentSection);
+    const records = await this.restaurantsDao.findSection(restaurantId, currentSection);
+    const { sections, ...restData } = records.toObject();
+    const newSections = sections.map(({ meals, ...restSection }) => {
+      const normalizedMeals = meals.map((meal) => this.mealService.normalizedMeal(meal));
+
+      return {
+        meals: normalizedMeals,
+        ...restSection,
+      };
+    });
+
+    return {
+      sections: newSections,
+      ...restData,
+    };
   }
 }
