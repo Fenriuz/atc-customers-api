@@ -40,6 +40,9 @@ export class Order {
   @Prop({ type: Boolean, default: false })
   readonly cancelled?: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  readonly delivered?: boolean;
+
   @Prop({ default: new Date().toISOString() })
   readonly orderedAt?: Date;
 }

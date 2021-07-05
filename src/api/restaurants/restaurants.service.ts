@@ -20,14 +20,19 @@ export class RestaurantsService {
     return isClosed;
   }
 
-  getExtraData(restaurantData: RestaurantDocument) {
-    const { schedule, ...restaurant } = restaurantData.toJSON();
+  getRestaurantImages(id: string) {
     const URL = cloudinaryFolders.url;
 
-    const images = {
-      cover: `${URL}/${cloudinaryFolders.restaurantCovers}/${restaurant?._id}`,
-      logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${restaurant?._id}`,
+    return {
+      cover: `${URL}/${cloudinaryFolders.restaurantCovers}/${id}`,
+      logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${id}`,
     };
+  }
+
+  getExtraData(restaurantData: RestaurantDocument) {
+    const { schedule, ...restaurant } = restaurantData.toJSON();
+
+    const images = this.getRestaurantImages(restaurant._id);
 
     return { schedule, images, ...restaurant };
   }

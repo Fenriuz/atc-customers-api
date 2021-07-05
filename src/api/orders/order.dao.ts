@@ -10,11 +10,11 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
 export class OrdersDao {
   constructor(@InjectModel(Order.name) private orderModel: Model<OrderDocument>) {}
 
-  private async saveOnFirestore(res: OrderDocument) {
+  async saveOnFirestore(res: OrderDocument) {
     try {
       const db = firestore();
 
-      const docRef = db.collection(mongoCollections.orders).doc(String(res.id));
+      const docRef = db.collection(mongoCollections.orders).doc(String(res._id));
       const orderFormated = JSON.stringify(res);
       await docRef.set(JSON.parse(orderFormated));
     } catch (e) {
@@ -25,21 +25,15 @@ export class OrdersDao {
 
   async create(order: Order) {
     try {
-      const newOrder = new this.orderModel(order);
+      // const newOrder = new this.orderModel(order).save();
 
-      (await newOrder.save()).populate(
-        {
-          path: 'restaurant',
-          select: 'displayName',
-        },
-        (err, res) => {
-          if (err) {
-            throw new HttpException(httpErrors.createOrder, HttpStatus.CONFLICT);
-          }
-
-          this.saveOnFirestore(res);
-        },
-      );
+      let newOrder = await this.orderModel.create(order);
+      newOrder = await newOrder
+        .populate({
+          path: 'restaurant deliveryMan customer',
+          select: 'displayName phone',
+        })
+        .execPopulate();
 
       return newOrder;
     } catch (dbErr) {
