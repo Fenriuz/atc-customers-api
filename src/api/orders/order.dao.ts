@@ -18,7 +18,6 @@ export class OrdersDao {
       const orderFormated = JSON.stringify(res);
       await docRef.set(JSON.parse(orderFormated));
     } catch (e) {
-      console.log(e);
       throw new HttpException(httpErrors.createOrder, HttpStatus.CONFLICT);
     }
   }

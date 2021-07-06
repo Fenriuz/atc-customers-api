@@ -55,6 +55,10 @@ export class OrdersService {
 
     newOrder['restaurant']['images'] = this.restaurantsService.getRestaurantImages(restaurant);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
     return await this.ordersDao.saveOnFirestore(newOrder);
   }
 

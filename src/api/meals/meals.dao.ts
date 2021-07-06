@@ -57,7 +57,6 @@ export class MealsDao {
         },
       ]);
     } catch (dbErr) {
-      console.log(dbErr);
       throw new HttpException(httpErrors.findOneMeal, HttpStatus.NOT_FOUND);
     }
   }
