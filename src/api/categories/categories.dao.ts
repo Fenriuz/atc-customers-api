@@ -19,7 +19,6 @@ export class CategoriesDao {
   async findById(id: string) {
     try {
       const _id = Types.ObjectId(id);
-      // return await this.categoryModel.findById(id);
       return await this.categoryModel.aggregate([
         { $match: { _id } },
         {
@@ -32,7 +31,6 @@ export class CategoriesDao {
         },
       ]);
     } catch (dbErr) {
-      console.log(dbErr);
       throw new HttpException(httpErrors.findOneCategory, HttpStatus.NOT_FOUND);
     }
   }

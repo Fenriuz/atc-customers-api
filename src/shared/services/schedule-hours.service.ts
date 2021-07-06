@@ -20,6 +20,7 @@ export class ScheduleHoursService {
     if (!day || day?.closed) {
       return true;
     }
+    console.log(this.date);
 
     const [opened, closed] = day?.hours;
     const [hours, minutes] = this.time.split(':');
