@@ -9,6 +9,7 @@ export class ScheduleHoursService {
 
   constructor() {
     this.date = new Date().toLocaleTimeString('en-HN', {
+      timeZone: 'UTC',
       hour12: false,
       weekday: 'long',
     });
