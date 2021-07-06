@@ -9,7 +9,7 @@ export class ScheduleHoursService {
 
   constructor() {
     this.date = new Date().toLocaleTimeString('en-HN', {
-      timeZone: 'UTC',
+      timeZone: 'America/Tegucigalpa',
       hour12: false,
       weekday: 'long',
     });
@@ -25,7 +25,7 @@ export class ScheduleHoursService {
 
     const [opened, closed] = day?.hours;
     const [hours, minutes] = this.time.split(':');
-    const currentTime = Number(hours) * 60 + Number(minutes);
+    const currentTime = Number(hours) * 60 + Number(minutes) + 6 * 60;
 
     if (opened > currentTime || closed < currentTime) {
       return true;
