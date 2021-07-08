@@ -21,6 +21,9 @@ export class Restaurant {
   @Prop()
   phone?: string;
 
+  @Prop({ unique: true, index: true })
+  email?: string;
+
   @Prop()
   schedule?: Schedule;
 
