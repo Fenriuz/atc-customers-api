@@ -1,5 +1,5 @@
 export const cloudinaryFolders = {
-  url: `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}`,
+  url: `https://res.cloudinary.com/a-tu-casa`,
   restaurants: 'restaurants',
   get restaurantCovers() {
     return this.restaurants + '/covers';
