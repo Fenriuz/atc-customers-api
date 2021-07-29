@@ -24,6 +24,9 @@ export class Customer {
 
   @Prop()
   readonly password: string;
+
+  @Prop({ default: false })
+  readonly disabled?: boolean;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);
