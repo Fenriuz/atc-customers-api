@@ -3,7 +3,6 @@ import { CreateCustomerDto, UpdateCustomerDto } from './customer.dto';
 import { CustomersDao } from './customers.dao';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
-import { LikesDao } from '../likes/likes.dao';
 
 interface UserAuthenticated {
   name: string;
@@ -25,18 +24,11 @@ interface UserAuthenticated {
 export class CustomersService {
   constructor(
     private customersDao: CustomersDao,
-    private likesDao: LikesDao,
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
   getCurrentCustomer() {
     return this.request.user as UserAuthenticated;
-  }
-
-  getLikes() {
-    const { _id } = this.getCurrentCustomer();
-
-    return this.likesDao.getCustomerLikes(_id);
   }
 
   create(customer: CreateCustomerDto) {

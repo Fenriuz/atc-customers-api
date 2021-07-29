@@ -4,6 +4,7 @@ import { Customer } from '../customers/customer.schema';
 import { CustomersService } from '../customers/customers.service';
 import { LikesDao } from '../likes/likes.dao';
 import { MealsDao } from './meals.dao';
+import { Meal } from './meals.schema';
 
 @Injectable()
 export class MealsService {
@@ -58,5 +59,18 @@ export class MealsService {
   likeMeal(id: string) {
     const user = this.customersService.getCurrentCustomer();
     return this.likesDao.create(id, user['_id']);
+  }
+
+  async findUserLikes(user: string) {
+    const meals = await this.likesDao.getCustomerLikes(user);
+    const formattedMeals = meals.map((likeDocument) => {
+      const { meal, ...restData } = likeDocument.toObject();
+      const mealDocument = meal as Meal;
+      const normalizedMeal = this.normalizedMeal(mealDocument);
+
+      return { meal: normalizedMeal, ...restData };
+    });
+
+    return formattedMeals;
   }
 }

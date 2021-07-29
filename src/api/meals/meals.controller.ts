@@ -11,6 +11,11 @@ export class MealsController {
     return this.mealsService.findAll();
   }
 
+  @Get('likes')
+  getUserLikes(@Request() { user }) {
+    return this.mealsService.findUserLikes(user);
+  }
+
   @Get(':id')
   findById(@Param('id') id: string, @Request() { user }) {
     return this.mealsService.findById(id, user);
