@@ -43,7 +43,8 @@ export class CustomersService {
     return this.customersDao.create(customer);
   }
 
-  update(id: string, customer: UpdateCustomerDto) {
-    return this.customersDao.update(id, customer);
+  update(customer: UpdateCustomerDto) {
+    const { _id } = this.getCurrentCustomer();
+    return this.customersDao.update(_id, customer);
   }
 }

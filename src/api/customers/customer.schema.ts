@@ -8,7 +8,7 @@ export class Customer {
   readonly _id?: string;
 
   @Prop({ unique: true, index: true })
-  readonly uid: string;
+  readonly uid?: string;
 
   @Prop()
   readonly displayName: string;

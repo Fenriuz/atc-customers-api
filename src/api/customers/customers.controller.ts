@@ -19,8 +19,8 @@ export class CustomersController {
     return this.customersService.create(customer);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() customer: UpdateCustomerDto) {
-    return this.customersService.update(id, customer);
+  @Put('me')
+  update(@Body() customer: UpdateCustomerDto) {
+    return this.customersService.update(customer);
   }
 }

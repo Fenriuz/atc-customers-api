@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class CreateCustomerDto {
   @IsString()
@@ -29,9 +29,9 @@ export class UpdateCustomerDto {
   @IsOptional()
   readonly displayName: string;
 
-  @IsNotEmpty()
-  @IsOptional()
-  readonly uid: string;
+  // @IsNotEmpty()
+  // @IsOptional()
+  // readonly uid: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -47,6 +47,10 @@ export class UpdateCustomerDto {
   @IsNotEmpty()
   @IsOptional()
   readonly photoURL: string;
+
+  @IsOptional()
+  @IsBoolean()
+  disabled?: boolean;
 
   readonly password: string;
 }
