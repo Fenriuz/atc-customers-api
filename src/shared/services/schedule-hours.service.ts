@@ -3,17 +3,26 @@ import { Schedule } from '@ts/interfaces/schedule';
 
 @Injectable()
 export class ScheduleHoursService {
-  private date: string;
-  private day: string;
-  private time: string;
-
-  constructor() {
-    this.date = new Date().toLocaleTimeString('en-HN', {
+  get date() {
+    const date = new Date().toLocaleTimeString('en-HN', {
       timeZone: 'America/Tegucigalpa',
       hour12: false,
       weekday: 'long',
     });
-    [this.day, this.time] = this.date.split(' ');
+
+    return date.split(' ');
+  }
+
+  get day() {
+    const [currentDay] = this.date;
+
+    return currentDay;
+  }
+
+  get time() {
+    const [, currentTime] = this.date;
+
+    return currentTime;
   }
 
   isClosedSchedule(schedule: Schedule) {
@@ -21,12 +30,11 @@ export class ScheduleHoursService {
     if (!day || day?.closed) {
       return true;
     }
-    console.log(this.date);
 
     const [opened, closed] = day?.hours;
     const [hours, minutes] = this.time.split(':');
-    const currentTime = Number(hours) * 60 + Number(minutes) + 6 * 60;
-
+    const currentMinutes = (Number(minutes) * 100) / 60;
+    const currentTime = Number(hours) * 60 + currentMinutes;
     if (opened > currentTime || closed < currentTime) {
       return true;
     }
