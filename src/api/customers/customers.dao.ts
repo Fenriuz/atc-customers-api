@@ -52,4 +52,12 @@ export class CustomersDao {
       );
     }
   }
+
+  findById(_id: string) {
+    try {
+      return this.customerModel.findById(_id);
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneCustomer, HttpStatus.CONFLICT);
+    }
+  }
 }

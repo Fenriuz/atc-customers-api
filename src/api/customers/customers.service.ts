@@ -39,4 +39,9 @@ export class CustomersService {
     const { _id } = this.getCurrentCustomer();
     return this.customersDao.update(_id, customer);
   }
+
+    getMe() {
+      const { _id } = this.getCurrentCustomer();
+      return this.customersDao.findById(_id);
+    }
 }

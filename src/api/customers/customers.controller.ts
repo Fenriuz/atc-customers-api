@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post, Put, Get } from '@nestjs/common';
 import { controllerRoutes } from '@shared/constants/controller-routes.constants';
 import { Public } from '../authentication/decorators/public.decorator';
 import { CreateCustomerDto, UpdateCustomerDto } from './customer.dto';
@@ -17,5 +17,10 @@ export class CustomersController {
   @Put('me')
   update(@Body() customer: UpdateCustomerDto) {
     return this.customersService.update(customer);
+  }
+
+  @Get('me')
+  getMe() {
+    return this.customersService.getMe();
   }
 }
